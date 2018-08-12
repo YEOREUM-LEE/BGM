@@ -33,11 +33,11 @@ public class HomeController {
 	
 	public String TestMethod() {
 	System.out.println("테스트 메소드");
-		return "";
+		return "3";
 	}
 	
 	public String TestMethod2() {
-		return "2";
+		return "4";
 	}
 	
 	
