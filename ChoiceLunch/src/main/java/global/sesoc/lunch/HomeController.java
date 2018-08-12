@@ -31,6 +31,12 @@ public class HomeController {
 	}
 	
 	
+	public String TestMethod() {
+	System.out.println("테스트 메소드");
+		return "";
+	}
+	
+	
 	
 	
 }
