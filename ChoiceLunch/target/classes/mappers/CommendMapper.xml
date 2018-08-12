@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="global.sesoc.lunch.dao.CommendMapper">
+
+<insert id="insertRcommend" parameterType="Commend">
+insert into rcommend
+(
+userid,
+gender,
+restaurant_id,
+reornon,
+regdate
+)
+values(
+#{userid},
+#{gender},
+#{rm_id},
+#{reornon},
+sysdate
+)
+
+</insert>
+	
+<insert id="insertMcommend" parameterType="Commend">
+insert into mcommend
+(
+userid,
+gender,
+menu_id,
+reornon,
+regdate
+)
+values(
+#{userid},
+#{gender},
+#{rm_id},
+#{reornon},
+sysdate
+)
+
+</insert>	
+</mapper>
+

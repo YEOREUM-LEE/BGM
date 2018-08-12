@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="global.sesoc.lunch.dao.RestaurantMapper">
+	
+	<insert id="insertRestaurant" parameterType="Restaurant">
+	insert into restaurant
+	(restaurant_id,restaurant_name,address,contact,rcategory,text,image,mapimage,regdate,userid,recommend,nonrecommend)
+	values(
+	restaurant_seq.nextval,
+	#{restaurant_name},
+	#{address},
+	#{contact},
+	#{rcategory},
+	#{text},
+	#{image},
+	#{mapimage},
+	sysdate,
+	#{userid},
+	#{recommend},
+	#{nonrecommend}
+	)
+	</insert>
+	
+	
+   <select id="RestaurantList" resultType="Restaurant">
+   select *
+   from restaurant
+   
+   </select>
+   
+   <select id="rcategoryRestaurantList" parameterType="String" resultType="Restaurant">
+   select *
+   from restaurant
+   where rcategory=#{value}
+   
+   </select>
+   
+   <select id="getRestaurant" parameterType="int" resultType="Restaurant">
+   select *
+   from restaurant
+   where restaurant_id=#{value}
+   
+   </select>
+   
+   <update id="updateRecommend" parameterType="int">
+   update restaurant
+   set recommend=(recommend+1)
+   where restaurant_id=#{value}
+   
+   </update>
+   
+    <update id="updateNonRecommend" parameterType="int">
+   update restaurant
+   set nonrecommend=(nonrecommend+1)
+   where restaurant_id=#{value}
+   
+   </update>
+   
+   <select id="getCommend" parameterType="int" resultType="Restaurant">
+   select recommend,nonrecommend
+   from restaurant
+   where restaurant_id=#{value}
+   </select>
+</mapper>
+

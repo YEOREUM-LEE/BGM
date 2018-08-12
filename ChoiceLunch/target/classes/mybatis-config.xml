@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+	<typeAlias type="global.sesoc.lunch.dto.UserData" alias="User" />
+	<typeAlias type="global.sesoc.lunch.dto.Restaurant" alias="Restaurant" />
+	<typeAlias type="global.sesoc.lunch.dto.Menu" alias="Menu" />
+	<typeAlias type="global.sesoc.lunch.dto.Commend" alias="Commend" />
+	<typeAlias type="global.sesoc.lunch.dto.Reply" alias="Reply" />
+
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="mappers/MenuMapper.xml" />
+		<mapper resource="mappers/RestaurantMapper.xml" />
+		<mapper resource="mappers/UserMapper.xml" />
+		<mapper resource="mappers/ReplyMapper.xml" />
+		<mapper resource="mappers/CommendMapper.xml" />
+
+	</mappers>
+
+
+</configuration>

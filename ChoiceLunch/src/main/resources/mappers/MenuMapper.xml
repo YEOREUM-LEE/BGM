@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="global.sesoc.lunch.dao.MenuMapper">
+
+	<insert id="insertMenu" parameterType="Menu">
+		insert into menu
+		(menu_id,
+		menu_name,
+		RESTAURANT_ID,
+		restaurant_name,
+		mcategory,
+		price,
+		image,
+		recommend,
+		nonrecommend,
+		userid,
+		regdate)
+		values(
+		menu_seq.nextval,
+		#{menu_name},
+		#{restaurant_id},
+		#{restaurant_name},
+		#{mcategory},
+		#{price},
+		#{image},
+		#{recommend},
+		#{nonrecommend},
+		#{userid},
+		sysdate
+		)
+
+	</insert>
+
+	<update id="updateMenu" parameterType="Menu">
+		update menu
+		set
+		menu_name=#{menu_name},
+		price=#{price},
+		image=#{image},
+		mcategory=#{mcategory},
+		recommend=0,
+		nonrecommend=0
+		where
+		menu_id=#{menu_id}
+
+	</update>
+
+	<delete id="deleteMenu" parameterType="int">
+		delete from menu
+		where
+		menu_id=#{value}
+	</delete>
+
+	<select id="getMenulist" parameterType="int" resultType="Menu">
+		select *
+		from menu
+		where restaurant_id=#{value}
+	</select>
+
+	<select id="getMenu" parameterType="int" resultType="Menu">
+		select *
+		from menu
+		where menu_id=#{value}
+
+	</select>
+
+	<update id="updateRecommend" parameterType="int">
+		update menu
+		set
+		recommend=(recommend+1)
+		where menu_id=#{value}
+
+	</update>
+
+	<update id="updateNonRecommend" parameterType="int">
+		update menu
+		set
+		nonrecommend=(nonrecommend+1)
+		where menu_id=#{value}
+
+	</update>
+
+	<select id="getCommend" parameterType="int" resultType="Menu">
+		select
+		recommend,nonrecommend
+		from menu
+		where menu_id=#{value}
+
+	</select>
+
+	<select id="getAllMenulist" resultType="Menu">
+		select *
+		from menu
+
+	</select>
+	<select id="getCategoryMenuList" parameterType="String"
+		resultType="Menu">
+		select *
+		from menu
+		where mcategory=#{value}
+
+	</select>
+
+	<select id="getPriceMenuList" parameterType="int"
+		resultType="Menu">
+	<![CDATA[ 
+	select *
+	from menu
+	where price<=#{value}
+	 ]]>
+	</select>
+
+	<select id="getChoiceMenuList" parameterType="Menu"
+		resultType="Menu">
+	<![CDATA[ 
+	select *
+	from menu
+	where price<=#{price} and mcategory=#{mcategory}
+	 ]]>
+
+	</select>
+<!-- 
+	<select id="getBestMenu" resultType="Menu">
+		select *
+		from menu
+		where
+		recommend=(select max(recommend)from menu)
+	</select>
+ -->
+	<select id="getBestMenu" resultType="Menu">
+<![CDATA[ 
+select * from(select *
+from menu
+order by recommend-nonrecommend desc)
+where ROWNUM <10
+]]>
+	</select>
+
+
+</mapper>
+

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="global.sesoc.lunch.dao.UserMapper">
+
+
+<insert id="insertUser" parameterType="User">
+insert into userdata
+(userid,
+password,
+gender,
+age,
+recommend_count,
+nonrecommend_count,
+rlastcommend_day,
+mlastcommend_day,
+joindate
+)
+values
+(
+#{userid},
+#{password},
+#{gender},
+#{age},
+0,
+0,
+sysdate-1,
+sysdate-1,
+sysdate
+)
+
+</insert>
+
+	
+	<select id="idcheck" parameterType="String" resultType="String">
+	select userid
+	from userdata
+	where userid=#{value}
+	</select>
+	
+	<select id="login" parameterType="User" resultType="User">
+	select userid,gender
+	from userdata
+	where userid=#{userid} and password=#{password}	
+	</select>
+	
+	
+	<select id="lastrCommendDay" parameterType="String" resultType="String">
+	select rlastcommend_day
+	from userdata
+	where userid=#{value} and (to_char(rlastcommend_day,'yyyy/mm/dd')!=to_char(sysdate,'yyyy/mm/dd'))
+	
+	</select>
+	
+	<select id="lastmCommendDay" parameterType="String" resultType="String">
+	select mlastcommend_day
+	from userdata
+	where userid=#{value} and (to_char(mlastcommend_day,'yyyy/mm/dd')!=to_char(sysdate,'yyyy/mm/dd'))
+	
+	</select>
+	
+	<update id="updateRecommend" parameterType="String">
+	update userdata
+	set recommend_count=(recommend_count+1)
+	where userid=#{value}
+	
+	</update>
+	<update id="updateNonRecommend" parameterType="String">
+	update userdata
+	set nonrecommend_count=(nonrecommend_count+1)
+	where userid=#{value}
+	
+	</update>
+	
+	<update id="updateRLCD" parameterType="String">
+	update userdata
+	set rlastcommend_day=sysdate
+	where userid=#{value}
+	
+	</update>
+	
+	<update id="updateMLCD" parameterType="String">
+	update userdata
+	set mlastcommend_day=sysdate
+	where userid=#{value}
+	
+	</update>
+	
+</mapper>
+
