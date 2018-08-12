@@ -36,6 +36,10 @@ public class HomeController {
 		return "";
 	}
 	
+	public String TestMethod2() {
+		return "2";
+	}
+	
 	
 	
 	
